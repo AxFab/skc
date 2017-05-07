@@ -20,17 +20,18 @@
 #ifndef _TIME_H
 #define _TIME_H 1
 
-#include <features.h>
 #include <stddef.h>
-#include <bits/time.h>
 
-typedef __time_t time_t;
-typedef __clock_t clock_t;
+#define CLOCKS_PER_SEC  1000000L
+
+
+typedef long int time_t;
+typedef long int clock_t;
 
 /* Structure for a time value.  */
 struct timespec
 {
-  __time_t tv_sec;    /* Seconds.  */
+  time_t tv_sec;    /* Seconds.  */
   long int tv_nsec;   /* Nanoseconds.  */
 };
 
@@ -45,7 +46,7 @@ struct tm
   int tm_hour;
   /* Day.   [1-31] */
   int tm_mday;
-  /* Month. [0-11] */  
+  /* Month. [0-11] */
   int tm_mon;
   /* Year - 1900.  */
   int tm_year;
@@ -71,7 +72,7 @@ struct tm
 
 /* Transform date and time to ASCII */
 char *asctime(const struct tm *tm);
-/* Transform date and time to ASCII */ 
+/* Transform date and time to ASCII */
 char *ctime(const time_t *timep);
 /* Calculate time difference */
 double difftime(time_t time1, time_t time0);

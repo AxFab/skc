@@ -18,15 +18,18 @@ NAME = SmokeOS_Libc
 
 # F L A G S -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 CFLAGS += -Wall -Wextra -Wno-unused-parameter -fno-builtin
-# CFLAGS += -ggdb3 
+# CFLAGS += -ggdb3
 # CFLAGS += -pedantic
 CFLAGS += -D_DATE_=\"'$(DATE)'\" -D_OSNAME_=\"'$(LINUX)'\"
 CFLAGS += -D_GITH_=\"'$(GIT)'\" -D_VTAG_=\"'$(VERSION)'\"
-CFLAGS += -D__USE_SCALL=1 -D__USE_EXT=1
 
-CFLAGS += -I $(topdir)/include 
-# CFLAGS += -I $(topdir)/include/lib/core -I $(topdir)/include/lib/cdefs -nostdinc
-CFLAGS += -I $(topdir)/include/asm/$(target_arch)-$(CC)
+CFLAGS += -nostdinc -isystem $(topdir)/include
+CFLAGS += -isystem $(topdir)/include/asm/$(target_arch)-$(CC)
+CFLAGS += -D__SKC_PARAM -D__C11 -D__REENT -D__SECURED_2
+
+# CFLAGS += -I $(topdir)/include
+# # CFLAGS += -I $(topdir)/include/lib/core -I $(topdir)/include/lib/cdefs -nostdinc
+# CFLAGS += -I $(topdir)/include/asm/$(target_arch)-$(CC)
 # CFLAGS += -I $(topdir)/../kernel/include
 # CFLAGS += -I $(topdir)/../kernel/include/_$(target_arch)
 

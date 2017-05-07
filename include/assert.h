@@ -20,7 +20,7 @@
 #ifndef _ASSERT_H
 #define _ASSERT_H 1
 
-#include <bits/cdefs.h>
+#include <features.h>
 
 #undef assert
 #ifdef NDEBUG
@@ -34,7 +34,13 @@
 /* If the assertion test is false, the program will print the reason for
   * the assertion an leave the program. in other case this routines have no
   * effect. */
-__NORET void __assert_fail(const char *expr, const char *file, int line,
-                   const char *func);
+void __assert_fail(const char *expr, const char *file, int line,
+                  const char *func); //  __NORET __NOTHROW
+
+void __assert_perror_fail(int errno, const char *file, int line,
+                  const char *func); //  __NORET __NOTHROW
+
+void __assert(const char *assertion, const char *file,
+                  int line); //  __NORET __NOTHROW
 
 #endif  /* _ASSERT_H */

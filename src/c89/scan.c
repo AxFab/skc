@@ -25,7 +25,7 @@
 #include <skc/fd.h>
 
 
-/* All of those methods are bind over vfscanf 
+/* All of those methods are bind over vfscanf
   which is implemented in another file. */
 int vfscanf(FILE *f, const char *format, va_list ap);
 
@@ -49,7 +49,7 @@ static int _sread(FILE *fp, char *buf, size_t length)
 
 
 /* -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
-#ifdef __USE_SCALL
+#ifdef __SYS_CALL
 /* Read and parse standard input */
 int scanf(const char *format, ...)
 {

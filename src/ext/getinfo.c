@@ -21,12 +21,12 @@
 #include <errno.h>
 #include <string.h>
 #include <skc/scall.h>
-#include <bits/cdefs.h>
+#include <features.h>
 
 #define PATH_MAX 8192
 #define GI_PWD 1
 
-/* Get current working directory 
+/* Get current working directory
 char *getcwd(char *buf, size_t size)
 {
   static char tmp[PATH_MAX];
@@ -69,7 +69,7 @@ FILE *popen(const char *command, const char *mode)
   int md;
   FILE* fp;
   pstart_t info;
-  int tty[2]; 
+  int tty[2];
 
   md = oflags(mode);
   if (md < 0 || pipe(tty) || strlen(command) <= 0)

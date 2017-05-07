@@ -17,20 +17,21 @@
  *
  *   - - - - - - - - - - - - - - -
  */
-#ifndef _SKC_MMAP_H
-#define _SKC_MMAP_H 1
+#ifndef _ISO646_H
+#define _ISO646_H 1
 
-#include <stddef.h>
+// Define ISO646 binary operands
+#define and     &&
+#define and_eq  &=
+#define bitand  &
+#define bitor   |
+#define compl   ~
+#define not     !
+#define not_eq  !=
+#define or      ||
+#define or_eq   |=
+#define xor     ^
+#define xor_eq  ^=
 
-#ifdef __SYS_CALL
-#include <sys/mman.h>
-// void *mmap(void *addr, size_t lg, int prot, int flags, int fd, off_t offset);
-#else
-#include <sys/types.h>
-int munmap(void *addr, size_t lg);
-#endif
 
-void *manmap(size_t lg, int prot);
-
-
-#endif  /* _SKC_MMAP_H */
+#endif /* _ISO646_H */

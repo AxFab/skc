@@ -43,8 +43,8 @@ int atexit(void (*function)(void));
 /* ARITHMETIC */
 /* Returned by `div'.  */
 typedef struct { int quot, rem; } div_t;
-/* Compute the absolute value of an integer */ 
-int abs(int j); 
+/* Compute the absolute value of an integer */
+int abs(int j);
 /* Compute quotient and remainder of an integer division */
 div_t div(int numerator, int denominator);
 
@@ -54,7 +54,7 @@ typedef struct { long int quot, rem; } ldiv_t;
 long int labs(long int j);
 /* Compute quotient and remainder of an integer division */
 ldiv_t ldiv(long numerator, long denominator);
-#ifdef __USE_C99
+#ifdef __have_LLONG
 /* Returned by `ldiv'.  */
 typedef struct { long long int quot, rem; } lldiv_t;
 /* Compute the absolute value of an integer */
@@ -77,7 +77,7 @@ double atof(const char *nptr);
 int atoi(const char *nptr);
 /* Convert a string to an integer */
 long atol(const char *nptr);
-#ifdef __USE_C99
+#ifdef __have_LLONG
 /* Convert a string to an integer */
 long long atoll(const char *nptr);
 /* Convert a string to an integer */
@@ -104,7 +104,7 @@ void *bsearch(const void *key, const void *base, size_t nmemb, size_t size, int 
 
 /* MULTI-BYTES CHARACTER */
 /* Determine number of bytes in next multibyte character */
-int mblen(const char *s, size_t n); 
+int mblen(const char *s, size_t n);
 /* Convert a multibyte string to a wide-character string */
 size_t mbstowcs(wchar_t *dest, const char *src, size_t n);
 /* Convert a multibyte sequence to a wide character */

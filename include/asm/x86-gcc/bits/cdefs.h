@@ -18,13 +18,18 @@
  *   - - - - - - - - - - - - - - -
  */
 #ifndef _BITS_CDEFS_H
-#define _BITS_CDEFS_H  1
+#define _BITS_CDEFS_H 1
 
-#if 0
-# include <cdefs/cc.h>
-#else
-#  define __NORET
-#endif
+#define __ILP32
+#define __have_LLONG
 
 
-#endif  /* _BITS_CDEFS_H */
+#define __NORET
+#define __NOTHROW
+#define __THROW
+#define restrict __restrict
+
+#define PACK(decl) decl __attribute__((__packed__))
+#define asm __asm
+
+#endif /* _BITS_CDEFS_H */

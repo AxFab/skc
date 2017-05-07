@@ -45,6 +45,8 @@ size_t _SFX(cspn)(const _TCHAR *s1, const _TCHAR *s2);
 int _SFX(icmp)(const _TCHAR *s1, const _TCHAR *s2);
 /* Calculates length of a string. */
 size_t _SFX(len)(const _TCHAR *str);
+/* Calculates length of a string. */
+size_t _SFX(nlen)(const _TCHAR *str, size_t maxlen);
 /* Appends at most maxlen characters of src to dest. */
 _TCHAR *_SFX(ncat)(_TCHAR *dest, const _TCHAR *src, size_t maxlen);
 /* Compares at most maxlen characters of one string to another. */
@@ -78,11 +80,14 @@ _TCHAR *_SFX(set)(_TCHAR *str, int c);
 /* Initialize characters of a string to a given format. */
 _TCHAR *_SFX(nset)(_TCHAR *str, int c, size_t maxlen);
 
+/* Scans s1 for the first token not contained in s2. */
+_TCHAR *_SFX(tok_r)(_TCHAR *s1, const _TCHAR *s2, _TCHAR **rent);
+
 /* Compare strings using locale-specific information. */
 int _SFX(coll)(const _TCHAR *s1, const _TCHAR *s2);
 int _SFX(icoll)(const _TCHAR *s1, const _TCHAR *s2);
 int _SFX(ncoll)(const _TCHAR *s1, const _TCHAR *s2, size_t maxlen);
 int _SFX(nicoll)(const _TCHAR *s1, const _TCHAR *s2, size_t maxlen);
 
-/* String transformation */ 
+/* String transformation */
 size_t _SFX(xfrm)(char *dest, const char *src, size_t n);

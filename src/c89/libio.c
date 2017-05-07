@@ -17,17 +17,17 @@
  *
  *   - - - - - - - - - - - - - - -
  */
-#ifndef __USE_SCALL
-# error "This source file can't be used without syscalls."
-#endif
-
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <fcntl.h>
 #include <string.h>
 #include <errno.h>
 #include <skc/fd.h>
+#include <krn/oflags.h>
+
+#ifndef __SYS_CALL
+# error "This source file can't be used without syscalls."
+#endif
 
 int fflush_unlocked(FILE *stream);
 
@@ -87,8 +87,8 @@ int oflags(const char* mode)
         break;
 
       case 'x': oflags |= O_EXCL; break;
-      /* 
-      case 'b': oflags |= O_BINARY; break; 
+      /*
+      case 'b': oflags |= O_BINARY; break;
       case 'e': oflags |= O_CLOEXEC; break;
       case 'm': oflags |= O_MEMORYMAP; break;
       case 'F': oflags |= O_LARGEFILE; break; */
@@ -210,7 +210,7 @@ FILE *freopen(const char *path, const char *mode, FILE *stream)
       fclose(stream);
       return NULL;
     }
-    if (newstm->fd_ == stream->fd_) 
+    if (newstm->fd_ == stream->fd_)
       newstm->fd_ = -1; /* avoid closing in fclose */
     // else if (__dup3(f2->fd, f->fd, oflg & O_CLOEXEC) < 0) {
     //   fclose(newstm);
@@ -236,7 +236,7 @@ int fclose(FILE *stream)
 {
   int ret;
   int perm;
-  
+
   if (stream == NULL)
     return 0;
 
@@ -370,7 +370,7 @@ int fileno(FILE *stream)
 int fflush_unlocked(FILE *stream)
 {
   /* If reading, sync position */
-  if (stream->rbf_.pos_ < stream->rbf_.end_) 
+  if (stream->rbf_.pos_ < stream->rbf_.end_)
     stream->seek(stream, stream->rbf_.pos_ - stream->rbf_.end_, SEEK_CUR);
 
   /* If writing, flush output */

@@ -17,7 +17,7 @@
  *
  *   - - - - - - - - - - - - - - -
  */
-#include <sys/types.h>
+// TODO #include <sys/types.h>
 #include <skc/iofile.h>
 
 /* Stream open functions */
@@ -52,7 +52,7 @@ void rewind(FILE *stream);
 /* Reposition a stream */
 int fgetpos(FILE *stream, fpos_t *pos);
 /* Reposition a stream */
-int fsetpos(FILE *stream, fpos_t *pos); 
+int fsetpos(FILE *stream, fpos_t *pos);
 
 
 /* Check and reset stream status */
@@ -62,7 +62,7 @@ int feof(FILE *stream);
 /* Check and reset stream status */
 int ferror(FILE *stream);
 /* Check and reset stream status */
-int fileno(FILE *stream); 
+int fileno(FILE *stream);
 
 
 /* Flush a stream */

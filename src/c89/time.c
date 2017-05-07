@@ -23,7 +23,7 @@
 
 int snprintf(char *, int, const char *, ...);
 
-#ifdef __USE_C99
+#ifdef __C99
 #  define __long long long
 #  define _LG(i) i ## LL
 #define _LG_MAX (2147483647LL * 31622400LL)
@@ -414,14 +414,14 @@ char *asctime(const struct tm *tm)
   return asctime_r(tm, buf);
 }
 
-/* Transform date and time to ASCII */ 
+/* Transform date and time to ASCII */
 char *ctime(const time_t *timep)
 {
   struct tm buf;
   return asctime(gmtime_r(timep, &buf));
 }
 
-/* The number of seconds elapsed between time time1 and time time0, 
+/* The number of seconds elapsed between time time1 and time time0,
  * represented as a double. */
 double difftime(time_t time1, time_t time0)
 {

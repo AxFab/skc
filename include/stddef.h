@@ -16,21 +16,36 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *   - - - - - - - - - - - - - - -
+ *
+ *      Standard definition.
  */
-#ifndef _SKC_MMAP_H
-#define _SKC_MMAP_H 1
+#ifndef _STDDEF_H
+#define _STDDEF_H 1
 
-#include <stddef.h>
+#include <features.h>
 
-#ifdef __SYS_CALL
-#include <sys/mman.h>
-// void *mmap(void *addr, size_t lg, int prot, int flags, int fd, off_t offset);
-#else
-#include <sys/types.h>
-int munmap(void *addr, size_t lg);
+#ifndef NULL
+#  ifdef cplusplus
+#    define NULL 0
+#  else
+#    define NULL ((void*)0)
+#  endif
 #endif
 
-void *manmap(size_t lg, int prot);
+#define offsetof(t,m)   ((size_t)&(((t*)0)->m))
 
 
-#endif  /* _SKC_MMAP_H */
+#  ifndef __defined_size_t
+#    define __defined_size_t
+typedef unsigned __INT_WORD size_t;
+#  endif
+typedef signed __INT_WORD ptrdiff_t;
+
+
+#if defined(__LP32)
+typedef long wchar_t;
+#else
+typedef int wchar_t;
+#endif
+
+#endif /* _STDDEF_H */

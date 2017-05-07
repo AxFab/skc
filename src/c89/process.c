@@ -17,11 +17,12 @@
  *
  *   - - - - - - - - - - - - - - -
  */
-#ifndef __USE_SCALL
+#include <features.h>
+#ifndef __SYS_CALL
 # error "This source file can't be used without syscalls."
 #endif
 
- 
+
 /* Cause abnormal process termination */
 void abort(void);
 /* Cause normal process termination */
@@ -32,4 +33,3 @@ char *getenv(const char *name);
 int system(const char *command);
 /* Register a function to be called at normal process termination. */
 int atexit(void (*function)(void));
-

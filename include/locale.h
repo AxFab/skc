@@ -20,7 +20,6 @@
 #ifndef _LOCALE_H
 #define _LOCALE_H 1
 
-#include <features.h>
 #include <stddef.h>
 #include <bits/locale.h>
 

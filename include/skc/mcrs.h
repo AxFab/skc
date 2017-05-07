@@ -20,7 +20,7 @@
 #ifndef _SKC_MCRS_H
 #define _SKC_MCRS_H 1
 
-#include <bits/cdefs.h>
+#include <features.h>
 
 /* Define some useful macros */
 #define _Kib_ (1024L)

@@ -1,9 +1,8 @@
 #include <skc/iofile.h>
-#include <fcntl.h>
 #include <skc/scall.h>
 #include <skc/mcrs.h>
 #include <skc/mmap.h>
-
+#include <krn/oflags.h>
 
 /* Function to get address of global `errno' variable.  */
 int *__errno_location(void)
@@ -28,7 +27,7 @@ void* __heap_end;
 
 void __malloc_init(void* base, size_t len);
 
-void __std_start(void) 
+void __std_start(void)
 {
   __progname = "?";
   __std_argv = &__progname;

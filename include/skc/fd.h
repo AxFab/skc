@@ -20,13 +20,15 @@
 #ifndef _SKC_FD_H
 #define _SKC_FD_H 1
 
-#ifndef __USE_SCALL
+#include <sys/types.h>
+
+#ifndef __SYS_CALL
 # error "This source file can't be used without syscalls."
 #endif
 
 int open(const char*, int, ...);
 int close(int);
-int read(int fd, void *buf, size_t count); 
+int read(int fd, void *buf, size_t count);
 int write(int fd, const void *buf, size_t count);
 int lseek(int fd, off_t offset, unsigned int origin);
 

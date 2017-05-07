@@ -46,7 +46,7 @@ int rename(const char *oldFn, const char *newFn);
 
 
 /* tmpfile, tmpnam */
-/* Generate and open a new temporary file */ 
+/* Generate and open a new temporary file */
 FILE *tmpfile(void);
 /* Generate a new name for a tempoary file */
 char *tmpnam(char *);
@@ -58,11 +58,11 @@ extern FILE *stdout;
 extern FILE *stderr;
 
 
-#ifdef __USE_EXT
+#if defined(__POSIX2) || defined(__XOPEN_95)
 
 /* Pipe stream to or from a process */
 FILE *popen(const char *command, const char *mode);
-
+int pclose(FILE *stream);
 
 #endif
 

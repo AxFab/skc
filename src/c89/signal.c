@@ -17,7 +17,8 @@
  *
  *   - - - - - - - - - - - - - - -
  */
-#ifndef __USE_SCALL
+#include <features.h>
+#ifndef __SYS_CALL
 # error "This source file can't be used without syscalls."
 #endif
 
