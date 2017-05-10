@@ -1,7 +1,8 @@
 #include <skc/iofile.h>
-#include <fcntl.h>
+// #include <fcntl.h>
 #include <skc/scall.h>
 #include <skc/mcrs.h>
+#include <krn/oflags.h>
 
 
 /* Function to get address of global `errno' variable.  */
@@ -32,7 +33,7 @@ void* brk(long len)
   return (void*)__syscall(0x2d, len);
 }
 
-void __std_start(void) 
+void __std_start(void)
 {
   __progname = *__std_argv;
 

@@ -28,7 +28,7 @@ static int __empty_arena = 0;
 static llhead_t __arenas;
 static heap_arena_t __firstArena;
 
-heap_arena_t *new_arena(size_t length) 
+heap_arena_t *new_arena(size_t length)
 {
   ++__empty_arena;
   heap_arena_t *arena = (heap_arena_t*)malloc(sizeof(heap_arena_t));
@@ -40,13 +40,14 @@ heap_arena_t *new_arena(size_t length)
   return arena;
 }
 
-void* valloc(size_t len) 
+void* valloc(size_t len)
 {
   heap_arena_t *arena = (heap_arena_t*)malloc(sizeof(heap_arena_t));
   void* map = manmap(len, PROT_READ | PROT_WRITE);
   arena->address_ = (size_t)map;
   arena->length_ = len;
   arena->flags_ = HEAP_MAPPED;
+  ll_append(&__arenas, &arena->node_);
   /* CREATE ARENA(HEAP_MAPPED) PUSH ON BBTREE */
   return map;
 }
@@ -59,7 +60,7 @@ void* pvalloc(size_t len)
 
 
 /* Allocate dynamic memory */
-void *malloc(size_t size) 
+void *malloc(size_t size)
 {
   void * ptr = NULL;
   heap_arena_t* arena = NULL;
@@ -93,7 +94,7 @@ void *malloc(size_t size)
 }
 
 /* Allocate and clear dynamic memory */
-void *calloc(size_t nmemb, size_t size) 
+void *calloc(size_t nmemb, size_t size)
 {
   void *ptr;
   size *= nmemb;
@@ -109,7 +110,7 @@ void *calloc(size_t nmemb, size_t size)
 /* Re-allocate dynamic memory */
 void *realloc(void *ptr, size_t size)
 {
-  size_t lg = 0; /* Get chunk size */ 
+  size_t lg = 0; /* Get chunk size */
   void *buf;
   if (lg > size)
     return ptr;
@@ -117,25 +118,43 @@ void *realloc(void *ptr, size_t size)
   buf = malloc(size);
   memcpy(buf, ptr, MIN(lg, size));
   free(ptr);
-  return buf; 
+  return buf;
 }
 
+
+heap_arena_t* find_arena(size_t ptr)
+{
+  heap_arena_t* arena;
+  // printf(" FREE - Look for 0x%zx\n", ptr);
+  ll_foreach(&__arenas, arena, heap_arena_t, node_) {
+    // printf("   |-> Arean 0x%zx - 0x%zx\n", arena->address_, arena->address_ + arena->length_);
+    if (arena->address_ > ptr || arena->address_ + arena->length_ <= ptr)
+      continue;
+    return arena;
+  }
+  return NULL;
+}
 
 /* Free dynamic memory */
 void free(void *ptr)
 {
-  heap_arena_t* arena = NULL; /* bbtree GET */
-  
-  if (!(arena->flags_ & HEAP_ARENA) && __HEAP_MMAP) {
-    if ((size_t)ptr == arena->address_)
-      munmap((void*)arena->address_, arena->length_);
-    else
-      __FAIL(-1);
-    /* Remove from bbtree and free */
-  } else if ((size_t)ptr >= arena->address_ && (size_t)ptr < arena->address_ + arena->length_)
-    free_r(arena, ptr);
-  else 
+  heap_arena_t* arena = find_arena((size_t)ptr); /* bbtree GET */
+  if (arena == NULL) {
     __FAIL(-1);
+  }
+
+  if (!(arena->flags_ & HEAP_ARENA) && __HEAP_MMAP) {
+    if ((size_t)ptr == arena->address_) {
+      munmap((void*)arena->address_, arena->length_);
+    } else {
+      __FAIL(-1);
+    }
+    /* Remove from bbtree and free */
+  // } else if ((size_t)ptr >= arena->address_ && (size_t)ptr < arena->address_ + arena->length_) {
+  } else {
+    free_r(arena, ptr);
+    // __FAIL(-1);
+  }
 }
 
 

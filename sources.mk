@@ -18,14 +18,21 @@ NAME = SmokeOS_Libc
 
 # F L A G S -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 CFLAGS += -Wall -Wextra -Wno-unused-parameter -fno-builtin
-# CFLAGS += -ggdb3
+ifneq ($(target_os),smkos)
+CFLAGS += -ggdb3
+endif
 # CFLAGS += -pedantic
 CFLAGS += -D_DATE_=\"'$(DATE)'\" -D_OSNAME_=\"'$(LINUX)'\"
 CFLAGS += -D_GITH_=\"'$(GIT)'\" -D_VTAG_=\"'$(VERSION)'\"
 
-CFLAGS += -nostdinc -isystem $(topdir)/include
-CFLAGS += -isystem $(topdir)/include/asm/$(target_arch)-$(CC)
-CFLAGS += -D__SKC_PARAM -D__C11 -D__REENT -D__SECURED_2
+# Use Library SKC
+ifneq($(SKC),)
+CFLAGS += -nostdinc -isystem $(topdir)/skc/include
+CFLAGS += -isystem $(topdir)/skc/include/asm/$(target_arch)-$(CC)
+CFLAGS += -isystem $(topdir)/skc/include/asm/$(target_os)
+CFLAGS += -D__SKC_PARAM -D__C11 -D__XOPEN_95 -D__REENT -D__SECURED_2
+LFLAGS += -nostdlib
+endif
 
 # CFLAGS += -I $(topdir)/include
 # # CFLAGS += -I $(topdir)/include/lib/core -I $(topdir)/include/lib/cdefs -nostdinc

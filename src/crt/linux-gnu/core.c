@@ -17,6 +17,7 @@ void __fxprintf(int fd, const char *msg, ...)
 
 void abort(void)
 {
+  __syscall(0x1, -1);
   for(;;);
 }
 
@@ -41,7 +42,7 @@ time_t time(time_t *p)
 {
   time_t s;
   __syscall(0x0d, &s);
-  if (p) 
+  if (p)
     *p = s;
   return s;
 }

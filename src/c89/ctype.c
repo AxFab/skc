@@ -26,6 +26,7 @@
 
 #include <skc/ctype.h>
 
+_CTYPE(blank)
 
 /* Convert letter to upper case */
 int toupper(int c)

@@ -9,7 +9,7 @@
 #define O_CLOEXEC (1 << 9)
 
 #define F_SETFD (1 << 0)
-#define F_SETFL (1 << 0)
+#define F_SETFL (1 << 1)
 
-#define FD_CLOEXEC (1 << 0)
+#define FD_CLOEXEC (1 << 2)
 

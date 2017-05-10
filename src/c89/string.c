@@ -219,8 +219,18 @@ int stricmp(const char *s1, const char *s2);
 size_t strlen(const char *str)
 {
   register const char *end = str;
-
   while (*end) {
+    ++end;
+  }
+
+  return end - str;
+}
+
+/* Calculates length of a string. */
+size_t strnlen(const char *str, size_t maxlen)
+{
+  register const char *end = str;
+  while (*end && --maxlen) {
     ++end;
   }
 
@@ -292,10 +302,24 @@ char *strtok(char *s1, const char *s2)
 }
 
 /* duplicate a string  */
-char *strdup(const char *str);
+char *strdup(const char *str)
+{
+  size_t lg = strlen(str);
+  char *ptr = (char*)malloc(lg + 1);
+  memcpy(ptr, str, lg);
+  ptr[lg] = '\0';
+  return ptr;
+}
 
 /* duplicate a string at most maxlen characters */
-char *strndup(const char *str, size_t maxlen);
+char *strndup(const char *str, size_t maxlen)
+{
+  size_t lg = strnlen(str, maxlen);
+  char *ptr = (char*)malloc(lg + 1);
+  memcpy(ptr, str, lg);
+  ptr[lg] = '\0';
+  return ptr;
+}
 
 /* Convert a string to lowercase. */
 char *strlwr(char *str);
@@ -342,6 +366,6 @@ int strncoll(const char *s1, const char *s2, size_t maxlen);
 /* Compare strings using locale-specific information. */
 int strnicoll(const char *s1, const char *s2, size_t maxlen);
 
-/* String transformation */ 
+/* String transformation */
 size_t strxfrm(char *dest, const char *src, size_t n);
 
